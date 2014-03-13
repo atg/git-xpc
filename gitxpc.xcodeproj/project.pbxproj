@@ -1,0 +1,277 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		75F64D8118D21F6900EF384A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64D8018D21F6900EF384A /* Foundation.framework */; };
+		75F64D8718D21F6900EF384A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75F64D8518D21F6900EF384A /* InfoPlist.strings */; };
+		75F64D8A18D21F6900EF384A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F64D8918D21F6900EF384A /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		75F64D7D18D21F6900EF384A /* com.chocolatapp.gitxpc.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.chocolatapp.gitxpc.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		75F64D8018D21F6900EF384A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		75F64D8418D21F6900EF384A /* gitxpc-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "gitxpc-Info.plist"; sourceTree = "<group>"; };
+		75F64D8618D21F6900EF384A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		75F64D8818D21F6900EF384A /* gitxpc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "gitxpc-Prefix.pch"; sourceTree = "<group>"; };
+		75F64D8918D21F6900EF384A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		75F64D7A18D21F6900EF384A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75F64D8118D21F6900EF384A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		75F64D7418D21F6900EF384A = {
+			isa = PBXGroup;
+			children = (
+				75F64D8218D21F6900EF384A /* gitxpc */,
+				75F64D7F18D21F6900EF384A /* Frameworks */,
+				75F64D7E18D21F6900EF384A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		75F64D7E18D21F6900EF384A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				75F64D7D18D21F6900EF384A /* com.chocolatapp.gitxpc.xpc */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		75F64D7F18D21F6900EF384A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75F64D8018D21F6900EF384A /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		75F64D8218D21F6900EF384A /* gitxpc */ = {
+			isa = PBXGroup;
+			children = (
+				75F64D8918D21F6900EF384A /* main.m */,
+				75F64D8318D21F6900EF384A /* Supporting Files */,
+			);
+			path = gitxpc;
+			sourceTree = "<group>";
+		};
+		75F64D8318D21F6900EF384A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				75F64D8418D21F6900EF384A /* gitxpc-Info.plist */,
+				75F64D8518D21F6900EF384A /* InfoPlist.strings */,
+				75F64D8818D21F6900EF384A /* gitxpc-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		75F64D7C18D21F6900EF384A /* gitxpc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75F64D8D18D21F6900EF384A /* Build configuration list for PBXNativeTarget "gitxpc" */;
+			buildPhases = (
+				75F64D7918D21F6900EF384A /* Sources */,
+				75F64D7A18D21F6900EF384A /* Frameworks */,
+				75F64D7B18D21F6900EF384A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = gitxpc;
+			productName = gitxpc;
+			productReference = 75F64D7D18D21F6900EF384A /* com.chocolatapp.gitxpc.xpc */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		75F64D7518D21F6900EF384A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = Chocolat;
+			};
+			buildConfigurationList = 75F64D7818D21F6900EF384A /* Build configuration list for PBXProject "gitxpc" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 75F64D7418D21F6900EF384A;
+			productRefGroup = 75F64D7E18D21F6900EF384A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				75F64D7C18D21F6900EF384A /* gitxpc */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		75F64D7B18D21F6900EF384A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75F64D8718D21F6900EF384A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		75F64D7918D21F6900EF384A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75F64D8A18D21F6900EF384A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		75F64D8518D21F6900EF384A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				75F64D8618D21F6900EF384A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		75F64D8B18D21F6900EF384A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		75F64D8C18D21F6900EF384A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		75F64D8E18D21F6900EF384A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "gitxpc/gitxpc-Prefix.pch";
+				INFOPLIST_FILE = "gitxpc/gitxpc-Info.plist";
+				MACH_O_TYPE = mh_execute;
+				PRODUCT_NAME = "com.chocolatapp.$(TARGET_NAME:rfc1034identifier)";
+				WRAPPER_EXTENSION = xpc;
+			};
+			name = Debug;
+		};
+		75F64D8F18D21F6900EF384A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "gitxpc/gitxpc-Prefix.pch";
+				INFOPLIST_FILE = "gitxpc/gitxpc-Info.plist";
+				MACH_O_TYPE = mh_execute;
+				PRODUCT_NAME = "com.chocolatapp.$(TARGET_NAME:rfc1034identifier)";
+				WRAPPER_EXTENSION = xpc;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		75F64D7818D21F6900EF384A /* Build configuration list for PBXProject "gitxpc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75F64D8B18D21F6900EF384A /* Debug */,
+				75F64D8C18D21F6900EF384A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75F64D8D18D21F6900EF384A /* Build configuration list for PBXNativeTarget "gitxpc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75F64D8E18D21F6900EF384A /* Debug */,
+				75F64D8F18D21F6900EF384A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 75F64D7518D21F6900EF384A /* Project object */;
+}
