@@ -13,7 +13,7 @@ Implementation:
 
 * XPC service
 
-* Use https://github.com/libgit2/objective-git for git stuff
+* Use **libgit2** or https://github.com/libgit2/objective-git for git stuff. I'm leaning towards raw libgit2 for easiness.
 
 * Three features: directory status (git, hg, svn), file diffs (git only), git operations (add, commit, pull, push, etc)
 
