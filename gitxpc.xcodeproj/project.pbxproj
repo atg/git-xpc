@@ -17,7 +17,37 @@
 		75F64DA918D2240300EF384A /* GITAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F64DA818D2240300EF384A /* GITAppDelegate.m */; };
 		75F64DAC18D2240400EF384A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75F64DAA18D2240400EF384A /* MainMenu.xib */; };
 		75F64DAE18D2240400EF384A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F64DAD18D2240400EF384A /* Images.xcassets */; };
+		75F64DCE18D3A8AC00EF384A /* com.chocolatapp.gitxpc.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75F64D7D18D21F6900EF384A /* com.chocolatapp.gitxpc.xpc */; };
+		75F64DD018D3AA9400EF384A /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DCF18D3AA9400EF384A /* libiconv.dylib */; };
+		75F64DD218D3AAA200EF384A /* libSystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD118D3AAA200EF384A /* libSystem.dylib */; };
+		75F64DD418D3AAAB00EF384A /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD318D3AAAB00EF384A /* libcrypto.dylib */; };
+		75F64DD618D3AAB300EF384A /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD518D3AAB300EF384A /* libssl.dylib */; };
+		75F64DD818D3AABA00EF384A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD718D3AABA00EF384A /* libz.dylib */; };
+		75F64DDE18D3ACB300EF384A /* libgit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD918D3AAFA00EF384A /* libgit2.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		75F64DDB18D3AB7A00EF384A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75F64D7518D21F6900EF384A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75F64D7C18D21F6900EF384A;
+			remoteInfo = gitxpc;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		75F64DCD18D3A8A000EF384A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				75F64DCE18D3A8AC00EF384A /* com.chocolatapp.gitxpc.xpc in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		75F64D7D18D21F6900EF384A /* com.chocolatapp.gitxpc.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.chocolatapp.gitxpc.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +71,12 @@
 		75F64DAB18D2240400EF384A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		75F64DAD18D2240400EF384A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		75F64DB418D2240400EF384A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		75F64DCF18D3AA9400EF384A /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		75F64DD118D3AAA200EF384A /* libSystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSystem.dylib; path = usr/lib/libSystem.dylib; sourceTree = SDKROOT; };
+		75F64DD318D3AAAB00EF384A /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
+		75F64DD518D3AAB300EF384A /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
+		75F64DD718D3AABA00EF384A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		75F64DD918D3AAFA00EF384A /* libgit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgit2.a; path = libgit2/build/libgit2.a; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +84,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75F64DDE18D3ACB300EF384A /* libgit2.a in Frameworks */,
+				75F64DD818D3AABA00EF384A /* libz.dylib in Frameworks */,
+				75F64DD618D3AAB300EF384A /* libssl.dylib in Frameworks */,
+				75F64DD418D3AAAB00EF384A /* libcrypto.dylib in Frameworks */,
+				75F64DD218D3AAA200EF384A /* libSystem.dylib in Frameworks */,
+				75F64DD018D3AA9400EF384A /* libiconv.dylib in Frameworks */,
 				75F64D8118D21F6900EF384A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -85,6 +127,11 @@
 		75F64D7F18D21F6900EF384A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75F64DD718D3AABA00EF384A /* libz.dylib */,
+				75F64DD518D3AAB300EF384A /* libssl.dylib */,
+				75F64DD318D3AAAB00EF384A /* libcrypto.dylib */,
+				75F64DD118D3AAA200EF384A /* libSystem.dylib */,
+				75F64DCF18D3AA9400EF384A /* libiconv.dylib */,
 				75F64D8018D21F6900EF384A /* Foundation.framework */,
 				75F64D9518D2240300EF384A /* Cocoa.framework */,
 				75F64DB418D2240400EF384A /* XCTest.framework */,
@@ -96,6 +143,7 @@
 		75F64D8218D21F6900EF384A /* gitxpc */ = {
 			isa = PBXGroup;
 			children = (
+				75F64DD918D3AAFA00EF384A /* libgit2.a */,
 				75F64D8918D21F6900EF384A /* main.m */,
 				75F64D8318D21F6900EF384A /* Supporting Files */,
 			);
@@ -173,10 +221,12 @@
 				75F64D9018D2240300EF384A /* Sources */,
 				75F64D9118D2240300EF384A /* Frameworks */,
 				75F64D9218D2240300EF384A /* Resources */,
+				75F64DCD18D3A8A000EF384A /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				75F64DDC18D3AB7A00EF384A /* PBXTargetDependency */,
 			);
 			name = GitXPCTester;
 			productName = GitXPCTester;
@@ -252,6 +302,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		75F64DDC18D3AB7A00EF384A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75F64D7C18D21F6900EF384A /* gitxpc */;
+			targetProxy = 75F64DDB18D3AB7A00EF384A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		75F64D8518D21F6900EF384A /* InfoPlist.strings */ = {
@@ -364,8 +422,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "gitxpc/gitxpc-Prefix.pch";
 				INFOPLIST_FILE = "gitxpc/gitxpc-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/alexgordon/Temporary/git-xpc/libgit2/build",
+				);
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.chocolatapp.$(TARGET_NAME:rfc1034identifier)";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libgit2/include\"";
 				WRAPPER_EXTENSION = xpc;
 			};
 			name = Debug;
@@ -377,8 +440,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "gitxpc/gitxpc-Prefix.pch";
 				INFOPLIST_FILE = "gitxpc/gitxpc-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/alexgordon/Temporary/git-xpc/libgit2/build",
+				);
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.chocolatapp.$(TARGET_NAME:rfc1034identifier)";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libgit2/include\"";
 				WRAPPER_EXTENSION = xpc;
 			};
 			name = Release;
@@ -441,6 +509,7 @@
 				75F64DC218D2240400EF384A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
