@@ -424,7 +424,7 @@
 				INFOPLIST_FILE = "gitxpc/gitxpc-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/alexgordon/Temporary/git-xpc/libgit2/build",
+					"\"$(SRCROOT)/libgit2/build\"",
 				);
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.chocolatapp.$(TARGET_NAME:rfc1034identifier)";
@@ -442,7 +442,7 @@
 				INFOPLIST_FILE = "gitxpc/gitxpc-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/alexgordon/Temporary/git-xpc/libgit2/build",
+					"\"$(SRCROOT)/libgit2/build\"",
 				);
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.chocolatapp.$(TARGET_NAME:rfc1034identifier)";
