@@ -2,6 +2,25 @@
 
 Git support for Chocolat.
 
+## Bootstrap
+
+Install `xctool` and `cmake`:
+```sh
+brew install cmake
+```
+
+Init submodules:
+```sh
+git submodule update --init --recursive
+```
+
+Compile libgit2:
+```sh
+mkdir External/libgit2/build && cd External/libgit2/build
+cmake ..
+cmake --build .
+```
+
 ## Design
 
 * Status checking (+ support for SVN, hg)
