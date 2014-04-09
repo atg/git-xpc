@@ -13,7 +13,7 @@
 *.gcov
 .lock-wafbuild
 .waf*
-build/
+#build/
 build-amiga/
 tests/tmp/
 msvc/Debug/

@@ -1,0 +1,2 @@
+/Users/alexgordon/Temporary/git-xpc/libgit2/build/CMakeFiles/git2.dir
+/Users/alexgordon/Temporary/git-xpc/libgit2/build/CMakeFiles/libgit2_clar.dir
