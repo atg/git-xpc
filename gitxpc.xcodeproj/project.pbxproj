@@ -23,7 +23,7 @@
 		75F64DD418D3AAAB00EF384A /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD318D3AAAB00EF384A /* libcrypto.dylib */; };
 		75F64DD618D3AAB300EF384A /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD518D3AAB300EF384A /* libssl.dylib */; };
 		75F64DD818D3AABA00EF384A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD718D3AABA00EF384A /* libz.dylib */; };
-		75F64DDE18D3ACB300EF384A /* libgit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD918D3AAFA00EF384A /* libgit2.a */; };
+		9811620218FDC6AC009FED45 /* ObjectiveGit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 9811620118FDC6AC009FED45 /* ObjectiveGit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +45,17 @@
 			files = (
 				75F64DCE18D3A8AC00EF384A /* com.chocolatapp.gitxpc.xpc in CopyFiles */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		981161FE18FDC57D009FED45 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9811620218FDC6AC009FED45 /* ObjectiveGit.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -76,7 +87,7 @@
 		75F64DD318D3AAAB00EF384A /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 		75F64DD518D3AAB300EF384A /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
 		75F64DD718D3AABA00EF384A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		75F64DD918D3AAFA00EF384A /* libgit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgit2.a; path = libgit2/build/libgit2.a; sourceTree = SOURCE_ROOT; };
+		9811620118FDC6AC009FED45 /* ObjectiveGit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ObjectiveGit.framework; path = "/Users/drudge/Library/Developer/Xcode/DerivedData/gitxpc-dnuloesvqjmeubdxnrogqmpoeyxk/Build/Products/Debug/ObjectiveGit.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +95,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75F64DDE18D3ACB300EF384A /* libgit2.a in Frameworks */,
 				75F64DD818D3AABA00EF384A /* libz.dylib in Frameworks */,
 				75F64DD618D3AAB300EF384A /* libssl.dylib in Frameworks */,
 				75F64DD418D3AAAB00EF384A /* libcrypto.dylib in Frameworks */,
@@ -132,6 +142,7 @@
 				75F64DD318D3AAAB00EF384A /* libcrypto.dylib */,
 				75F64DD118D3AAA200EF384A /* libSystem.dylib */,
 				75F64DCF18D3AA9400EF384A /* libiconv.dylib */,
+				9811620118FDC6AC009FED45 /* ObjectiveGit.framework */,
 				75F64D8018D21F6900EF384A /* Foundation.framework */,
 				75F64D9518D2240300EF384A /* Cocoa.framework */,
 				75F64DB418D2240400EF384A /* XCTest.framework */,
@@ -143,7 +154,6 @@
 		75F64D8218D21F6900EF384A /* gitxpc */ = {
 			isa = PBXGroup;
 			children = (
-				75F64DD918D3AAFA00EF384A /* libgit2.a */,
 				75F64D8918D21F6900EF384A /* main.m */,
 				75F64D8318D21F6900EF384A /* Supporting Files */,
 			);
@@ -203,6 +213,7 @@
 			buildPhases = (
 				75F64D7918D21F6900EF384A /* Sources */,
 				75F64D7A18D21F6900EF384A /* Frameworks */,
+				981161FE18FDC57D009FED45 /* Copy Frameworks */,
 				75F64D7B18D21F6900EF384A /* Resources */,
 			);
 			buildRules = (
@@ -419,16 +430,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External/ObjectiveGit/build/Debug",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "gitxpc/gitxpc-Prefix.pch";
 				INFOPLIST_FILE = "gitxpc/gitxpc-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/libgit2/build\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.chocolatapp.$(TARGET_NAME:rfc1034identifier)";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libgit2/include\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/External/ObjectiveGit/External/libgit2/include\"";
 				WRAPPER_EXTENSION = xpc;
 			};
 			name = Debug;
@@ -437,16 +449,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External/ObjectiveGit/build/Debug",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "gitxpc/gitxpc-Prefix.pch";
 				INFOPLIST_FILE = "gitxpc/gitxpc-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/libgit2/build\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.chocolatapp.$(TARGET_NAME:rfc1034identifier)";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libgit2/include\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/External/ObjectiveGit/External/libgit2/include\"";
 				WRAPPER_EXTENSION = xpc;
 			};
 			name = Release;

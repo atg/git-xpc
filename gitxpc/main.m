@@ -2,96 +2,9 @@
 
 #include <xpc/xpc.h>
 #include <Foundation/Foundation.h>
-#import "git2.h"
+#import <ObjectiveGit/ObjectiveGit.h>
 
-static int status_callback(const char *path, unsigned int status_flags, void *payload) {
-    
-    // Ignore ignored files
-    if ((status_flags & GIT_STATUS_IGNORED) != 0)
-        return 0;
-    
-    xpc_object_t msg = (__bridge xpc_object_t)payload;
-    xpc_dictionary_set_uint64(msg, path, status_flags);
-    return 0;
-}
-
-static void get_status(xpc_connection_t conn, xpc_object_t msg, const char* path) {
-    // { "files": [ { "path": "path/to/directory/file.txt", "status": "added" } ] }
-    
-    // TODO: Cache repos? Or would that confuse git by holding locks?
-    
-    git_repository* repo = NULL;
-    git_repository_open(&repo, path);
-    if (repo) {
-        git_status_foreach(repo, status_callback, (__bridge void*)msg); //CFBridgingRetain(msg));
-        git_repository_free(repo);
-    }
-    
-    xpc_connection_send_message(conn, msg);
-}
-
-
-
-static int diff_file_callback(const git_diff_delta *delta, float progress, void *payload) {
-    return 0;
-}
-static int diff_hunk_callback(const git_diff_delta *delta, const git_diff_hunk *hunk, void *payload) {
-    return 0;
-}
-static int diff_line_callback(const git_diff_delta *delta, const git_diff_hunk *hunk, const git_diff_line *line, void *payload) {
-    xpc_object_t obj = (__bridge xpc_object_t)payload;
-    
-    xpc_object_t info = xpc_dictionary_create(NULL, NULL, 0);
-    xpc_array_append_value(obj, info);
-    
-#if 0
-    typedef enum {
-        /* These values will be sent to `git_diff_line_cb` along with the line */
-        GIT_DIFF_LINE_CONTEXT   = ' ',
-        GIT_DIFF_LINE_ADDITION  = '+',
-        GIT_DIFF_LINE_DELETION  = '-',
-        
-        GIT_DIFF_LINE_CONTEXT_EOFNL = '=', /**< Both files have no LF at end */
-        GIT_DIFF_LINE_ADD_EOFNL = '>',     /**< Old has no LF at end, new does */
-        GIT_DIFF_LINE_DEL_EOFNL = '<',     /**< Old has LF at end, new does not */
-        
-        /* The following values will only be sent to a `git_diff_line_cb` when
-         * the content of a diff is being formatted through `git_diff_print`.
-         */
-        GIT_DIFF_LINE_FILE_HDR  = 'F',
-        GIT_DIFF_LINE_HUNK_HDR  = 'H',
-        GIT_DIFF_LINE_BINARY    = 'B' /**< For "Binary files x and y differ" */
-    } git_diff_line_t;
-    
-    /**
-     * Structure describing a line (or data span) of a diff.
-     */
-    typedef struct git_diff_line git_diff_line;
-    struct git_diff_line {
-        char   origin;       /** A git_diff_line_t value */
-        int    old_lineno;   /** Line number in old file or -1 for added line */
-        int    new_lineno;   /** Line number in new file or -1 for deleted line */
-        int    num_lines;    /** Number of newline characters in content */
-        size_t content_len;  /** Number of bytes of data */
-        git_off_t content_offset; /** Offset in the original file to the content */
-        const char *content; /** Pointer to diff text, not NUL-byte terminated */
-    };
-#endif
-    
-    
-    NSLog(@"Found dif");
-    xpc_dictionary_set_int64(info, "origin", (int64_t)line->origin);
-    xpc_dictionary_set_int64(info, "old_lineno", (int64_t)line->old_lineno);
-    xpc_dictionary_set_int64(info, "new_lineno", (int64_t)line->new_lineno);
-    xpc_dictionary_set_int64(info, "num_lines", (int64_t)line->num_lines);
-
-    xpc_dictionary_set_uint64(info, "num_lines", (uint64_t)line->content_len);
-    xpc_dictionary_set_int64(info, "num_lines", (int64_t)line->content_offset);
-    
-    return 0;
-}
-
-static void get_diff(xpc_connection_t conn, xpc_object_t msg, const char* repopath, const char* filepath, const char* buf, size_t buflen) {
+/*static void get_diff(xpc_connection_t conn, xpc_object_t msg, const char* repopath, const char* filepath, const char* buf, size_t buflen) {
     
     git_repository* repo = NULL;
     git_repository_open(&repo, repopath);
@@ -136,7 +49,7 @@ static void get_diff(xpc_connection_t conn, xpc_object_t msg, const char* repopa
     }
     
     xpc_connection_send_message(conn, msg);
-}
+}*/
 
 static void do_commit(xpc_connection_t conn, xpc_object_t msg, const char* path) {
     // ???
@@ -151,7 +64,7 @@ static void handle_message(xpc_connection_t peer, xpc_object_t event) {
     
     NSLog(@"%@", reply_msg);
     
-    if (0 == strcmp("status", name)) {
+    /*if (0 == strcmp("status", name)) {
         get_status(reply_conn, reply_msg, repopath);
     }
     else if (0 == strcmp("diff", name)) {
@@ -167,9 +80,8 @@ static void handle_message(xpc_connection_t peer, xpc_object_t event) {
     }
     else {
         assert(0 && "Unknown command");
-    }
+    }*/
 }
-
 
 
 
