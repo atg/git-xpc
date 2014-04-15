@@ -9,6 +9,13 @@ Git support for Chocolat.
 * Project bar status (the way Xcode 5 shows it is nice)
 * Menu for various git commands, e.g. git fsck
 
+## Building
+
+1. Install xctool and cmake: `brew install xctool cmake`
+2. Clone `git clone https://github.com/fileability/git-xpc.git -b objective-git git-xpc --recursive`
+3. `cd git-xpc/External/ObjectiveGit && ./script/bootstrap`
+4. Open gitxpc.xcworkspace
+
 Implementation:
 
 * XPC service
