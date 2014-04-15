@@ -23,7 +23,8 @@
 		75F64DD418D3AAAB00EF384A /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD318D3AAAB00EF384A /* libcrypto.dylib */; };
 		75F64DD618D3AAB300EF384A /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD518D3AAB300EF384A /* libssl.dylib */; };
 		75F64DD818D3AABA00EF384A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD718D3AABA00EF384A /* libz.dylib */; };
-		9811620218FDC6AC009FED45 /* ObjectiveGit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 9811620118FDC6AC009FED45 /* ObjectiveGit.framework */; };
+		9836AD8D18FDD9B200CD2E57 /* ObjectiveGit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9836AD8C18FDD9B200CD2E57 /* ObjectiveGit.framework */; };
+		9836AD8E18FDEAFF00CD2E57 /* ObjectiveGit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 9836AD8C18FDD9B200CD2E57 /* ObjectiveGit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +54,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9811620218FDC6AC009FED45 /* ObjectiveGit.framework in Copy Frameworks */,
+				9836AD8E18FDEAFF00CD2E57 /* ObjectiveGit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,7 +88,7 @@
 		75F64DD318D3AAAB00EF384A /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 		75F64DD518D3AAB300EF384A /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
 		75F64DD718D3AABA00EF384A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		9811620118FDC6AC009FED45 /* ObjectiveGit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ObjectiveGit.framework; path = "/Users/drudge/Library/Developer/Xcode/DerivedData/gitxpc-dnuloesvqjmeubdxnrogqmpoeyxk/Build/Products/Debug/ObjectiveGit.framework"; sourceTree = "<absolute>"; };
+		9836AD8C18FDD9B200CD2E57 /* ObjectiveGit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectiveGit.framework; path = "../../Library/Developer/Xcode/DerivedData/gitxpc-gmfisgplohjhaqaksjpjhjvnezai/Build/Products/Debug/ObjectiveGit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9836AD8D18FDD9B200CD2E57 /* ObjectiveGit.framework in Frameworks */,
 				75F64DD818D3AABA00EF384A /* libz.dylib in Frameworks */,
 				75F64DD618D3AAB300EF384A /* libssl.dylib in Frameworks */,
 				75F64DD418D3AAAB00EF384A /* libcrypto.dylib in Frameworks */,
@@ -137,12 +139,12 @@
 		75F64D7F18D21F6900EF384A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9836AD8C18FDD9B200CD2E57 /* ObjectiveGit.framework */,
 				75F64DD718D3AABA00EF384A /* libz.dylib */,
 				75F64DD518D3AAB300EF384A /* libssl.dylib */,
 				75F64DD318D3AAAB00EF384A /* libcrypto.dylib */,
 				75F64DD118D3AAA200EF384A /* libSystem.dylib */,
 				75F64DCF18D3AA9400EF384A /* libiconv.dylib */,
-				9811620118FDC6AC009FED45 /* ObjectiveGit.framework */,
 				75F64D8018D21F6900EF384A /* Foundation.framework */,
 				75F64D9518D2240300EF384A /* Cocoa.framework */,
 				75F64DB418D2240400EF384A /* XCTest.framework */,
@@ -433,10 +435,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/External/ObjectiveGit/build/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/gitxpc-dnuloesvqjmeubdxnrogqmpoeyxk/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/gitxpc-gmfisgplohjhaqaksjpjhjvnezai/Build/Products/Debug",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "gitxpc/gitxpc-Prefix.pch";
 				INFOPLIST_FILE = "gitxpc/gitxpc-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.chocolatapp.$(TARGET_NAME:rfc1034identifier)";
@@ -452,10 +457,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/External/ObjectiveGit/build/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/gitxpc-dnuloesvqjmeubdxnrogqmpoeyxk/Build/Products/Debug",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/gitxpc-gmfisgplohjhaqaksjpjhjvnezai/Build/Products/Debug",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "gitxpc/gitxpc-Prefix.pch";
 				INFOPLIST_FILE = "gitxpc/gitxpc-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "com.chocolatapp.$(TARGET_NAME:rfc1034identifier)";

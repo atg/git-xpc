@@ -4,6 +4,25 @@
 #include <Foundation/Foundation.h>
 #import <ObjectiveGit/ObjectiveGit.h>
 
+static void get_status(xpc_connection_t conn, xpc_object_t msg, const char* path) {
+    // TODO: Cache repos? Or would that confuse git by holding locks?
+    NSError *err = nil;
+    GTRepository *repo = [GTRepository repositoryWithURL:[NSURL fileURLWithPath:[NSString stringWithUTF8String:path]] error:&err];
+    
+    if (repo) {
+        [repo enumerateFileStatusWithOptions:[NSDictionary dictionary] error:&err usingBlock:^(GTStatusDelta *headToIndex, GTStatusDelta *indexToWorkingDirectory, BOOL *stop) {
+            // Ignore ignored files
+            NSLog(@"%@: %i", indexToWorkingDirectory.newFile.path, indexToWorkingDirectory.status);
+            if (indexToWorkingDirectory.status != GTStatusDeltaStatusIgnored) {
+                xpc_dictionary_set_uint64(msg, [indexToWorkingDirectory.newFile.path UTF8String], indexToWorkingDirectory.status);
+            }
+        }];
+    }
+    
+    xpc_connection_send_message(conn, msg);
+}
+
+
 /*static void get_diff(xpc_connection_t conn, xpc_object_t msg, const char* repopath, const char* filepath, const char* buf, size_t buflen) {
     
     git_repository* repo = NULL;
@@ -49,12 +68,12 @@
     }
     
     xpc_connection_send_message(conn, msg);
-}*/
+}
 
 static void do_commit(xpc_connection_t conn, xpc_object_t msg, const char* path) {
     // ???
     xpc_connection_send_message(conn, msg);
-}
+}*/
 
 static void handle_message(xpc_connection_t peer, xpc_object_t event) {
     const char* name = xpc_dictionary_get_string(event, "type"); assert(name != NULL);
@@ -64,9 +83,9 @@ static void handle_message(xpc_connection_t peer, xpc_object_t event) {
     
     NSLog(@"%@", reply_msg);
     
-    /*if (0 == strcmp("status", name)) {
+    if (0 == strcmp("status", name)) {
         get_status(reply_conn, reply_msg, repopath);
-    }
+    }/*
     else if (0 == strcmp("diff", name)) {
         const char* filepath = xpc_dictionary_get_string(event, "filepath"); assert(filepath != NULL);
         
@@ -77,10 +96,10 @@ static void handle_message(xpc_connection_t peer, xpc_object_t event) {
     }
     else if (0 == strcmp("commit", name)) {
         do_commit(reply_conn, reply_msg, repopath);
-    }
+    }*/
     else {
         assert(0 && "Unknown command");
-    }*/
+    }
 }
 
 
