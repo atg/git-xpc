@@ -25,9 +25,6 @@
 		75F64DD818D3AABA00EF384A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD718D3AABA00EF384A /* libz.dylib */; };
 		8C25D48818FEDF5900387FE0 /* ObjectiveGit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C759C7718FEDF0E00B79573 /* ObjectiveGit.framework */; };
 		8C25D48918FEDF6100387FE0 /* ObjectiveGit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8C759C7718FEDF0E00B79573 /* ObjectiveGit.framework */; };
-		8C5027A118FEBFB3001F9395 /* handler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5027A018FEBFB3001F9395 /* handler.m */; };
-		8C5027A318FEBFEB001F9395 /* status.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5027A218FEBFEB001F9395 /* status.m */; };
-		8CB463C218FEC48F005D5638 /* diff.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB463C118FEC48F005D5638 /* diff.m */; };
 		980386DB18FDFCC6006000EF /* GTRepository+Chocolat.m in Sources */ = {isa = PBXBuildFile; fileRef = 980386DA18FDFCC6006000EF /* GTRepository+Chocolat.m */; };
 		980386DE18FDFF47006000EF /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 980386DD18FDFF47006000EF /* EXTScope.m */; };
 /* End PBXBuildFile section */
@@ -122,10 +119,7 @@
 		75F64DD518D3AAB300EF384A /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
 		75F64DD718D3AABA00EF384A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8C25D47518FEDF4F00387FE0 /* ObjectiveGitFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveGitFramework.xcodeproj; path = External/ObjectiveGit/ObjectiveGitFramework.xcodeproj; sourceTree = "<group>"; };
-		8C5027A018FEBFB3001F9395 /* handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = handler.m; sourceTree = "<group>"; };
-		8C5027A218FEBFEB001F9395 /* status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = status.m; sourceTree = "<group>"; };
 		8C759C6D18FEDF0D00B79573 /* ObjectiveGitFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveGitFramework.xcodeproj; path = External/ObjectiveGit/ObjectiveGitFramework.xcodeproj; sourceTree = "<group>"; };
-		8CB463C118FEC48F005D5638 /* diff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = diff.m; sourceTree = "<group>"; };
 		980386D918FDFCC6006000EF /* GTRepository+Chocolat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTRepository+Chocolat.h"; sourceTree = "<group>"; };
 		980386DA18FDFCC6006000EF /* GTRepository+Chocolat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTRepository+Chocolat.m"; sourceTree = "<group>"; };
 		980386DC18FDFF47006000EF /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EXTScope.h; path = ../External/ObjectiveGit/External/libextobjc/extobjc/EXTScope.h; sourceTree = "<group>"; };
@@ -200,9 +194,6 @@
 		75F64D8218D21F6900EF384A /* gitxpc */ = {
 			isa = PBXGroup;
 			children = (
-				8CB463C118FEC48F005D5638 /* diff.m */,
-				8C5027A218FEBFEB001F9395 /* status.m */,
-				8C5027A018FEBFB3001F9395 /* handler.m */,
 				75F64D8918D21F6900EF384A /* main.m */,
 				75F64D8318D21F6900EF384A /* Supporting Files */,
 			);
@@ -413,9 +404,6 @@
 			files = (
 				980386DE18FDFF47006000EF /* EXTScope.m in Sources */,
 				75F64D8A18D21F6900EF384A /* main.m in Sources */,
-				8C5027A318FEBFEB001F9395 /* status.m in Sources */,
-				8C5027A118FEBFB3001F9395 /* handler.m in Sources */,
-				8CB463C218FEC48F005D5638 /* diff.m in Sources */,
 				980386DB18FDFCC6006000EF /* GTRepository+Chocolat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
