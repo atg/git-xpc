@@ -4,3 +4,8 @@
 //  The contents of this file are implicitly included at the beginning of every source file.
 //
 
+#include <xpc/xpc.h>
+#include <Foundation/Foundation.h>
+#import <ObjectiveGit/ObjectiveGit.h>
+
+#import "GTRepository+Chocolat.h"

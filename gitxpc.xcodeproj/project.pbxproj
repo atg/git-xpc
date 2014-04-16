@@ -23,6 +23,8 @@
 		75F64DD418D3AAAB00EF384A /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD318D3AAAB00EF384A /* libcrypto.dylib */; };
 		75F64DD618D3AAB300EF384A /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD518D3AAB300EF384A /* libssl.dylib */; };
 		75F64DD818D3AABA00EF384A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD718D3AABA00EF384A /* libz.dylib */; };
+		980386DB18FDFCC6006000EF /* GTRepository+Chocolat.m in Sources */ = {isa = PBXBuildFile; fileRef = 980386DA18FDFCC6006000EF /* GTRepository+Chocolat.m */; };
+		980386DE18FDFF47006000EF /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 980386DD18FDFF47006000EF /* EXTScope.m */; };
 		9836AD8D18FDD9B200CD2E57 /* ObjectiveGit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9836AD8C18FDD9B200CD2E57 /* ObjectiveGit.framework */; };
 		9836AD8E18FDEAFF00CD2E57 /* ObjectiveGit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 9836AD8C18FDD9B200CD2E57 /* ObjectiveGit.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +90,10 @@
 		75F64DD318D3AAAB00EF384A /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 		75F64DD518D3AAB300EF384A /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
 		75F64DD718D3AABA00EF384A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		980386D918FDFCC6006000EF /* GTRepository+Chocolat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTRepository+Chocolat.h"; sourceTree = "<group>"; };
+		980386DA18FDFCC6006000EF /* GTRepository+Chocolat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTRepository+Chocolat.m"; sourceTree = "<group>"; };
+		980386DC18FDFF47006000EF /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EXTScope.h; path = ../External/ObjectiveGit/External/libextobjc/extobjc/EXTScope.h; sourceTree = "<group>"; };
+		980386DD18FDFF47006000EF /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EXTScope.m; path = ../External/ObjectiveGit/External/libextobjc/extobjc/EXTScope.m; sourceTree = "<group>"; };
 		9836AD8C18FDD9B200CD2E57 /* ObjectiveGit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectiveGit.framework; path = "../../Library/Developer/Xcode/DerivedData/gitxpc-gmfisgplohjhaqaksjpjhjvnezai/Build/Products/Debug/ObjectiveGit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +171,10 @@
 		75F64D8318D21F6900EF384A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				980386D918FDFCC6006000EF /* GTRepository+Chocolat.h */,
+				980386DA18FDFCC6006000EF /* GTRepository+Chocolat.m */,
+				980386DC18FDFF47006000EF /* EXTScope.h */,
+				980386DD18FDFF47006000EF /* EXTScope.m */,
 				75F64D8418D21F6900EF384A /* gitxpc-Info.plist */,
 				75F64D8518D21F6900EF384A /* InfoPlist.strings */,
 				75F64D8818D21F6900EF384A /* gitxpc-Prefix.pch */,
@@ -301,7 +311,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				980386DE18FDFF47006000EF /* EXTScope.m in Sources */,
 				75F64D8A18D21F6900EF384A /* main.m in Sources */,
+				980386DB18FDFCC6006000EF /* GTRepository+Chocolat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

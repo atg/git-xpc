@@ -11,6 +11,7 @@ Git support for Chocolat.
 
 ## Building
 
+
 1. Install xctool and cmake: `brew install xctool cmake`
 2. Clone `git clone https://github.com/fileability/git-xpc.git -b objective-git git-xpc --recursive`
 3. `cd git-xpc/External/ObjectiveGit && ./script/bootstrap`

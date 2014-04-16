@@ -1,21 +1,11 @@
 //  Created by Alex Gordon on 13/03/2014.
 
-#include <xpc/xpc.h>
-#include <Foundation/Foundation.h>
-#import <ObjectiveGit/ObjectiveGit.h>
-
 static void get_status(xpc_connection_t conn, xpc_object_t msg, const char* path) {
-    // TODO: Cache repos? Or would that confuse git by holding locks?
-    NSError *err = nil;
-    GTRepository *repo = [GTRepository repositoryWithURL:[NSURL fileURLWithPath:[NSString stringWithUTF8String:path]] error:&err];
+    GTRepository *repo = [GTRepository repositoryWithURL:[NSURL fileURLWithPath:[NSString stringWithUTF8String:path]] error:nil];
     
     if (repo) {
-        [repo enumerateFileStatusWithOptions:[NSDictionary dictionary] error:&err usingBlock:^(GTStatusDelta *headToIndex, GTStatusDelta *indexToWorkingDirectory, BOOL *stop) {
-            // Ignore ignored files
-            NSLog(@"%@: %i", indexToWorkingDirectory.newFile.path, indexToWorkingDirectory.status);
-            if (indexToWorkingDirectory.status != GTStatusDeltaStatusIgnored) {
-                xpc_dictionary_set_uint64(msg, [indexToWorkingDirectory.newFile.path UTF8String], indexToWorkingDirectory.status);
-            }
+        [repo choc_enumerateFileStatusUsingBlock:^(NSString *fileName, GTRepositoryStatusFlags status, BOOL *stop) {
+            xpc_dictionary_set_uint64(msg, [fileName UTF8String], status);
         }];
     }
     
