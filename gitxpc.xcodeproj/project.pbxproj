@@ -23,10 +23,13 @@
 		75F64DD418D3AAAB00EF384A /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD318D3AAAB00EF384A /* libcrypto.dylib */; };
 		75F64DD618D3AAB300EF384A /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD518D3AAB300EF384A /* libssl.dylib */; };
 		75F64DD818D3AABA00EF384A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F64DD718D3AABA00EF384A /* libz.dylib */; };
+		8C25D48818FEDF5900387FE0 /* ObjectiveGit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C759C7718FEDF0E00B79573 /* ObjectiveGit.framework */; };
+		8C25D48918FEDF6100387FE0 /* ObjectiveGit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8C759C7718FEDF0E00B79573 /* ObjectiveGit.framework */; };
+		8C5027A118FEBFB3001F9395 /* handler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5027A018FEBFB3001F9395 /* handler.m */; };
+		8C5027A318FEBFEB001F9395 /* status.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5027A218FEBFEB001F9395 /* status.m */; };
+		8CB463C218FEC48F005D5638 /* diff.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB463C118FEC48F005D5638 /* diff.m */; };
 		980386DB18FDFCC6006000EF /* GTRepository+Chocolat.m in Sources */ = {isa = PBXBuildFile; fileRef = 980386DA18FDFCC6006000EF /* GTRepository+Chocolat.m */; };
 		980386DE18FDFF47006000EF /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 980386DD18FDFF47006000EF /* EXTScope.m */; };
-		9836AD8D18FDD9B200CD2E57 /* ObjectiveGit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9836AD8C18FDD9B200CD2E57 /* ObjectiveGit.framework */; };
-		9836AD8E18FDEAFF00CD2E57 /* ObjectiveGit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 9836AD8C18FDD9B200CD2E57 /* ObjectiveGit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 75F64D7C18D21F6900EF384A;
 			remoteInfo = gitxpc;
+		};
+		8C25D48418FEDF5100387FE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8C25D47518FEDF4F00387FE0 /* ObjectiveGitFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = ObjectiveGit;
+		};
+		8C25D48618FEDF5100387FE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8C25D47518FEDF4F00387FE0 /* ObjectiveGitFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 04DB4645133AB57600D9C624;
+			remoteInfo = "ObjectiveGit-iOS";
+		};
+		8C759C7618FEDF0E00B79573 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8C759C6D18FEDF0D00B79573 /* ObjectiveGitFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = ObjectiveGit;
+		};
+		8C759C7818FEDF0E00B79573 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8C759C6D18FEDF0D00B79573 /* ObjectiveGitFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 04DB4645133AB57600D9C624;
+			remoteInfo = "ObjectiveGit-iOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -56,7 +87,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9836AD8E18FDEAFF00CD2E57 /* ObjectiveGit.framework in Copy Frameworks */,
+				8C25D48918FEDF6100387FE0 /* ObjectiveGit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +121,11 @@
 		75F64DD318D3AAAB00EF384A /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 		75F64DD518D3AAB300EF384A /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
 		75F64DD718D3AABA00EF384A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		8C25D47518FEDF4F00387FE0 /* ObjectiveGitFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveGitFramework.xcodeproj; path = External/ObjectiveGit/ObjectiveGitFramework.xcodeproj; sourceTree = "<group>"; };
+		8C5027A018FEBFB3001F9395 /* handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = handler.m; sourceTree = "<group>"; };
+		8C5027A218FEBFEB001F9395 /* status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = status.m; sourceTree = "<group>"; };
+		8C759C6D18FEDF0D00B79573 /* ObjectiveGitFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjectiveGitFramework.xcodeproj; path = External/ObjectiveGit/ObjectiveGitFramework.xcodeproj; sourceTree = "<group>"; };
+		8CB463C118FEC48F005D5638 /* diff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = diff.m; sourceTree = "<group>"; };
 		980386D918FDFCC6006000EF /* GTRepository+Chocolat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTRepository+Chocolat.h"; sourceTree = "<group>"; };
 		980386DA18FDFCC6006000EF /* GTRepository+Chocolat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTRepository+Chocolat.m"; sourceTree = "<group>"; };
 		980386DC18FDFF47006000EF /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EXTScope.h; path = ../External/ObjectiveGit/External/libextobjc/extobjc/EXTScope.h; sourceTree = "<group>"; };
@@ -102,7 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9836AD8D18FDD9B200CD2E57 /* ObjectiveGit.framework in Frameworks */,
+				8C25D48818FEDF5900387FE0 /* ObjectiveGit.framework in Frameworks */,
 				75F64DD818D3AABA00EF384A /* libz.dylib in Frameworks */,
 				75F64DD618D3AAB300EF384A /* libssl.dylib in Frameworks */,
 				75F64DD418D3AAAB00EF384A /* libcrypto.dylib in Frameworks */,
@@ -126,6 +162,7 @@
 		75F64D7418D21F6900EF384A = {
 			isa = PBXGroup;
 			children = (
+				8C25D47518FEDF4F00387FE0 /* ObjectiveGitFramework.xcodeproj */,
 				75F64D8218D21F6900EF384A /* gitxpc */,
 				75F64D9B18D2240300EF384A /* GitXPCTester */,
 				75F64D7F18D21F6900EF384A /* Frameworks */,
@@ -145,6 +182,7 @@
 		75F64D7F18D21F6900EF384A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C759C6D18FEDF0D00B79573 /* ObjectiveGitFramework.xcodeproj */,
 				9836AD8C18FDD9B200CD2E57 /* ObjectiveGit.framework */,
 				75F64DD718D3AABA00EF384A /* libz.dylib */,
 				75F64DD518D3AAB300EF384A /* libssl.dylib */,
@@ -162,6 +200,9 @@
 		75F64D8218D21F6900EF384A /* gitxpc */ = {
 			isa = PBXGroup;
 			children = (
+				8CB463C118FEC48F005D5638 /* diff.m */,
+				8C5027A218FEBFEB001F9395 /* status.m */,
+				8C5027A018FEBFB3001F9395 /* handler.m */,
 				75F64D8918D21F6900EF384A /* main.m */,
 				75F64D8318D21F6900EF384A /* Supporting Files */,
 			);
@@ -214,6 +255,24 @@
 				75F64DA418D2240300EF384A /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8C25D47618FEDF4F00387FE0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8C25D48518FEDF5100387FE0 /* ObjectiveGit.framework */,
+				8C25D48718FEDF5100387FE0 /* libObjectiveGit-iOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8C759C6E18FEDF0D00B79573 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8C759C7718FEDF0E00B79573 /* ObjectiveGit.framework */,
+				8C759C7918FEDF0E00B79573 /* libObjectiveGit-iOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +335,16 @@
 			mainGroup = 75F64D7418D21F6900EF384A;
 			productRefGroup = 75F64D7E18D21F6900EF384A /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8C759C6E18FEDF0D00B79573 /* Products */;
+					ProjectRef = 8C759C6D18FEDF0D00B79573 /* ObjectiveGitFramework.xcodeproj */;
+				},
+				{
+					ProductGroup = 8C25D47618FEDF4F00387FE0 /* Products */;
+					ProjectRef = 8C25D47518FEDF4F00387FE0 /* ObjectiveGitFramework.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				75F64D7C18D21F6900EF384A /* gitxpc */,
@@ -283,6 +352,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8C25D48518FEDF5100387FE0 /* ObjectiveGit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ObjectiveGit.framework;
+			remoteRef = 8C25D48418FEDF5100387FE0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8C25D48718FEDF5100387FE0 /* libObjectiveGit-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libObjectiveGit-iOS.a";
+			remoteRef = 8C25D48618FEDF5100387FE0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8C759C7718FEDF0E00B79573 /* ObjectiveGit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ObjectiveGit.framework;
+			remoteRef = 8C759C7618FEDF0E00B79573 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8C759C7918FEDF0E00B79573 /* libObjectiveGit-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libObjectiveGit-iOS.a";
+			remoteRef = 8C759C7818FEDF0E00B79573 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		75F64D7B18D21F6900EF384A /* Resources */ = {
@@ -313,6 +413,9 @@
 			files = (
 				980386DE18FDFF47006000EF /* EXTScope.m in Sources */,
 				75F64D8A18D21F6900EF384A /* main.m in Sources */,
+				8C5027A318FEBFEB001F9395 /* status.m in Sources */,
+				8C5027A118FEBFB3001F9395 /* handler.m in Sources */,
+				8CB463C218FEC48F005D5638 /* diff.m in Sources */,
 				980386DB18FDFCC6006000EF /* GTRepository+Chocolat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
