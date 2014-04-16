@@ -46,7 +46,9 @@ static void getDiffOfFile(xpc_connection_t conn, xpc_object_t msg, GTRepository 
     [patch enumerateHunksUsingBlock:onGTDiffHunk];
   };
 
-  [diff enumerateDeltasUsingBlock:onGTDiffDelta];
+  if (diff) {
+    [diff enumerateDeltasUsingBlock:onGTDiffDelta];
+  }
 
   xpc_dictionary_set_value(msg, "diff", modifications);
   xpc_connection_send_message(conn, msg);
