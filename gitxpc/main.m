@@ -79,7 +79,7 @@ static void handleXPCMessage(xpc_connection_t peer, xpc_object_t event){
   xpc_object_t msg = xpc_dictionary_create_reply(event);
 
   NSString *name = @(xpc_dictionary_get_string(event, "type"));
-  NSURL *repopath = [NSURL fileURLWithPath:@(xpc_dictionary_get_string(event, "repopath"))];
+  NSURL *repopath = [NSURL fileURLWithPath:@(xpc_dictionary_get_string(event, "repopath")) isDirectory:NO];
 
   GTRepository *repo = [GTRepository repositoryWithURL:repopath error:nil];
 
