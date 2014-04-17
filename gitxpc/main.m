@@ -3,8 +3,8 @@ static void do_commit(xpc_connection_t conn, xpc_object_t msg, const char* path)
 }
 
 static void getDiffOfFile(xpc_connection_t conn, xpc_object_t msg, xpc_object_t event, GTRepository *repo){
-  NSString *filepath = [NSString stringWithUTF8String:xpc_dictionary_get_string(event, "filepath")];
-  NSData *contents = [[NSString stringWithUTF8String:xpc_dictionary_get_string(event, "buffer")] dataUsingEncoding:NSUTF8StringEncoding];
+  NSString *filepath = @(xpc_dictionary_get_string(event, "filepath"));
+  NSData *contents = [@(xpc_dictionary_get_string(event, "buffer")) dataUsingEncoding:NSUTF8StringEncoding];
   
   if (!filepath || !contents) {
     return xpc_connection_send_message(conn, msg);
@@ -78,8 +78,8 @@ static void handleXPCMessage(xpc_connection_t peer, xpc_object_t event){
   xpc_connection_t conn = xpc_dictionary_get_remote_connection(event);
   xpc_object_t msg = xpc_dictionary_create_reply(event);
 
-  NSString *name = [NSString stringWithUTF8String:xpc_dictionary_get_string(event, "type")];
-  NSURL *repopath = [NSURL fileURLWithPath:[NSString stringWithUTF8String:xpc_dictionary_get_string(event, "repopath")]];
+  NSString *name = @(xpc_dictionary_get_string(event, "type"));
+  NSURL *repopath = [NSURL fileURLWithPath:@(xpc_dictionary_get_string(event, "repopath"))];
 
   GTRepository *repo = [GTRepository repositoryWithURL:repopath error:nil];
 
