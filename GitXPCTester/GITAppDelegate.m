@@ -49,13 +49,14 @@ static void handle_event(xpc_object_t event) {
 }
 
 - (void)getStatusForDirectory {
-    NSString* directory = @"/Users/alexgordon/chocolat";
-    NSString* filepath = @"CHActionPanelLineNumberView.m";
+    NSString* directory = @"/Users/ramitos/git-xpc";
+    NSString* filepath = @"git-xpc/main.m";
     
     xpc_object_t msg = xpc_dictionary_create(NULL, NULL, 0);
     xpc_dictionary_set_string(msg, "type", "diff");
     xpc_dictionary_set_string(msg, "repopath", directory.UTF8String);
     xpc_dictionary_set_string(msg, "filepath", filepath.UTF8String);
+    xpc_dictionary_set_string(msg, "buffer", @"hello world".UTF8String);
     
     xpc_connection_send_message_with_reply(_conn, msg, dispatch_get_main_queue(), ^(xpc_object_t event) {
         xpc_type_t type = xpc_get_type(event);

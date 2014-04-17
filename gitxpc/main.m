@@ -2,13 +2,25 @@ static void do_commit(xpc_connection_t conn, xpc_object_t msg, const char* path)
   xpc_connection_send_message(conn, msg);
 }
 
-static void getDiffOfFile(xpc_connection_t conn, xpc_object_t msg, GTRepository *repo, NSString* filepath){
+static void getDiffOfFile(xpc_connection_t conn, xpc_object_t msg, xpc_object_t event, GTRepository *repo){
+  NSString *filepath = [NSString stringWithUTF8String:xpc_dictionary_get_string(event, "filepath")];
+  NSData *contents = [[NSString stringWithUTF8String:xpc_dictionary_get_string(event, "buffer")] dataUsingEncoding:NSUTF8StringEncoding];
+  
+  if (!filepath || !contents) {
+    return xpc_connection_send_message(conn, msg);
+  }
+  
   xpc_object_t modifications = xpc_array_create(NULL, 0);
+  
+  GTTreeBuilder *newTree = [[GTTreeBuilder alloc] initWithTree:nil error:nil];
+  GTTreeBuilder *oldTree = [[GTTreeBuilder alloc] initWithTree:nil error:nil];
+  GTTreeEntry *newTreeEntry = [newTree addEntryWithData:contents fileName:filepath fileMode:GTFileModeBlob error:nil];
+  GTTreeEntry *oldTreeEntry = [oldTree entryWithFileName:filepath];
 
-  GTDiff *diff = [GTDiff diffIndexToWorkingDirectoryInRepository:repo options:@{
+  GTDiff *diff = [GTDiff diffOldTree:oldTreeEntry.tree withNewTree:newTreeEntry.tree inRepository:repo options:@{
     @"GTDiffOptionsPathSpecArrayKey": @[filepath]
   } error:nil];
-
+  
   void(^onGTDiffLine)() = ^(GTDiffLine *line, BOOL *stop){
     if (!line) {
       return;
@@ -76,14 +88,14 @@ static void handleXPCMessage(xpc_connection_t peer, xpc_object_t event){
   }
 
   NSLog(@"%@", msg);
-
+  
   NSArray *events = @[@"status", @"diff"];
   switch ([events indexOfObject:name]) {
     case 0: // status
       getStatusForDirectory(conn, msg, repo);
       break;
     case 1: // diff
-      getDiffOfFile(conn, msg, repo, [NSString stringWithUTF8String:xpc_dictionary_get_string(event, "filepath")]);
+      getDiffOfFile(conn, msg, event, repo);
       break;
     default:
       assert(0 && "Unknown command");
