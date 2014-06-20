@@ -49,7 +49,7 @@ static void handle_event(xpc_object_t event) {
 }
 
 - (void)getStatusForDirectory {
-    NSString* directory = @"/Users/ramitos/git-xpc";
+    NSString* directory = @"/Users/ramitos/dev/git-xpc/";
     NSString* filepath = @"git-xpc/main.m";
     
     xpc_object_t msg = xpc_dictionary_create(NULL, NULL, 0);
