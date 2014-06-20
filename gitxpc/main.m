@@ -2,8 +2,8 @@
 //  xpc_connection_send_message(conn, msg);
 //}
 
-static int onGTDiffLine(const git_diff_delta *gitDelta, const git_diff_hunk *gitHunk, const git_diff_line *gitLine, void *payload){
-  xpc_object_t modifications = (__bridge xpc_object_t)(payload);
+int onGTDiffLine(const git_diff_delta *gitDelta, const git_diff_hunk *gitHunk, const git_diff_line *gitLine, void *payload){
+  xpc_object_t modifications = (__bridge xpc_object_t) payload;
   GTDiffLine *line = [[GTDiffLine alloc] initWithGitLine:gitLine];
   if (line.newLineNumber < 0) {
     return 1;
@@ -24,11 +24,7 @@ static void getDiffOfFile(xpc_connection_t conn, xpc_object_t msg, xpc_object_t 
   GTBlob *newBlob = [GTBlob blobWithData:contents inRepository:repo error:nil];
   GTBlob *oldBlob = [GTBlob blobWithFile:filepath inRepository:repo error:nil];
   
-  NSLog(@"%@", filepath);
-  NSLog(@"%@", contents);
-  NSLog(@"%@", oldBlob);
-  
-  git_diff_blobs(oldBlob.git_blob, NULL, newBlob.git_blob, NULL, NULL, NULL, NULL, onGTDiffLine, &modifications);
+  git_diff_blobs(oldBlob.git_blob, NULL, newBlob.git_blob, NULL, NULL, NULL, NULL, onGTDiffLine, (__bridge void*)modifications);
 
   xpc_dictionary_set_value(msg, "diff", modifications);
   xpc_connection_send_message(conn, msg);
