@@ -14,6 +14,8 @@
 #import "GTTreeEntry.h"
 #import "ObjectiveGit.h"
 
+#import <vector>
+
 static int status_callback(const char *path, unsigned int status_flags, void *payload) {
     
     // Ignore ignored files
@@ -138,7 +140,143 @@ static void getDiffOfFile(xpc_connection_t conn, xpc_object_t msg, xpc_object_t 
 };
 
 
+#define SEND_AND_RETURN do { xpc_dictionary_set_int64(msg, "errline", __LINE__); xpc_connection_send_message(conn, msg); return; } while(0)
+
+int DiffHunkCallback(const git_diff_delta* delta, const git_diff_hunk* range, void* payload) {
+    std::vector<git_diff_hunk>* ranges = static_cast<std::vector<git_diff_hunk>*>(payload);
+    ranges->push_back(*range);
+    return GIT_OK;
+}
+
 static void get_diff(xpc_connection_t conn, xpc_object_t msg, xpc_object_t event) {
+    NSString *repopath = @(xpc_dictionary_get_string(event, "repopath"));
+    
+    NSError* err = nil;
+    NSURL* url = [NSURL fileURLWithPath:repopath isDirectory:YES];
+    GTRepository* objcrepo = [[GTRepository alloc] initWithURL:url error:&err];
+    if (!objcrepo)
+        SEND_AND_RETURN;
+    
+    const char* filepath = xpc_dictionary_get_string(event, "filepath");
+    NSString* objcfilepath = @(filepath);
+    const char* relpath = NULL;
+    
+    if ([objcfilepath hasPrefix:[repopath stringByAppendingString:@"/"]]) {
+        long n = [repopath length] + 1;
+        relpath = [[objcfilepath substringWithRange:NSMakeRange(n, [objcfilepath length] - n)] UTF8String];
+    }
+    
+//    NSLog(@"filepath %s", filepath);
+//    NSLog(@"relpath %s", relpath);
+    
+//    NSString *filepath = @();
+    const char* data = xpc_dictionary_get_string(event, "buffer");
+    size_t data_len = strlen(data);
+    
+//    NSData *contents = [NSData dataWithBytesNoCopy:(void*)data length:strlen(data) freeWhenDone:NO];//[@() dataUsingEncoding:NSUTF8StringEncoding];
+    
+    if (!filepath || !relpath || !data)
+        SEND_AND_RETURN;
+    
+    xpc_object_t modifications = xpc_array_create(NULL, 0);
+    xpc_dictionary_set_value(msg, "diff", modifications);
+
+    
+    
+    git_repository* repo = [objcrepo git_repository];
+    BOOL useIndex = NO;
+    
+    git_blob* blob = NULL;
+    if (useIndex) {
+        git_index* index;
+        if (git_repository_index(&index, repo) != GIT_OK)
+            SEND_AND_RETURN;
+        
+        git_index_read(index, 0);
+        const git_index_entry* entry = git_index_get_bypath(index, relpath, 0);
+        if (entry == NULL) {
+            git_index_free(index);
+            SEND_AND_RETURN;
+        }
+        
+        const git_oid* blobSha = &entry->id;
+        if (blobSha != NULL && git_blob_lookup(&blob, repo, blobSha) != GIT_OK)
+            blob = NULL;
+    } else {
+        git_reference* head;
+        if (git_repository_head(&head, repo) != GIT_OK)
+            SEND_AND_RETURN;
+        
+        const git_oid* sha = git_reference_target(head);
+        git_commit* commit;
+        int commitStatus = git_commit_lookup(&commit, repo, sha);
+        git_reference_free(head);
+        if (commitStatus != GIT_OK)
+            SEND_AND_RETURN;
+        
+        git_tree* tree;
+        int treeStatus = git_commit_tree(&tree, commit);
+        git_commit_free(commit);
+        if (treeStatus != GIT_OK)
+            SEND_AND_RETURN;
+        
+        git_tree_entry* treeEntry;
+        if (git_tree_entry_bypath(&treeEntry, tree, relpath) != GIT_OK) {
+            git_tree_free(tree);
+            SEND_AND_RETURN;
+        }
+        
+        const git_oid* blobSha = git_tree_entry_id(treeEntry);
+        if (blobSha != NULL && git_blob_lookup(&blob, repo, blobSha) != GIT_OK)
+            blob = NULL;
+        git_tree_entry_free(treeEntry);
+        git_tree_free(tree);
+    }
+    
+    if (blob == NULL)
+        SEND_AND_RETURN;
+    
+    std::vector<git_diff_hunk> ranges;
+    
+    git_diff_options options = GIT_DIFF_OPTIONS_INIT;
+    options.context_lines = 0;
+    
+    // Set GIT_DIFF_IGNORE_WHITESPACE_EOL when ignoreEolWhitespace: true
+    const bool ignoreEolWhitespace = true;
+    if (ignoreEolWhitespace)
+        options.flags = GIT_DIFF_IGNORE_WHITESPACE_EOL;
+    
+    
+    options.context_lines = 0;
+    if (git_diff_blob_to_buffer(blob, NULL, data, data_len, NULL,
+                                &options, NULL, DiffHunkCallback, NULL,
+                                &ranges) == GIT_OK) {
+        
+//        Local<Object> v8Ranges = Array::New(ranges.size());
+        for (size_t i = 0; i < ranges.size(); i++) {
+            xpc_object_t change = xpc_array_create(NULL, 0);
+            xpc_array_set_int64(change, 0, (int64_t)(ranges[i].old_start));
+            xpc_array_set_int64(change, 1, (int64_t)(ranges[i].old_lines));
+            xpc_array_set_int64(change, 2, (int64_t)(ranges[i].new_start));
+            xpc_array_set_int64(change, 3, (int64_t)(ranges[i].new_lines));
+            xpc_array_append_value(modifications, change);
+            
+//            Local<Object> v8Range = Object::New();
+//            v8Range->Set(NanSymbol("oldStart"), Number::New(ranges[i].old_start));
+//            v8Range->Set(NanSymbol("oldLines"), Number::New(ranges[i].old_lines));
+//            v8Range->Set(NanSymbol("newStart"), Number::New(ranges[i].new_start));
+//            v8Range->Set(NanSymbol("newLines"), Number::New(ranges[i].new_lines));
+//            v8Ranges->Set(i, v8Range);
+        }
+        git_blob_free(blob);
+        SEND_AND_RETURN;
+    } else {
+        git_blob_free(blob);
+        SEND_AND_RETURN;
+    }
+}
+#if 0
+static void get_diff_old(xpc_connection_t conn, xpc_object_t msg, xpc_object_t event) {
 //static void getDiffOfFile(xpc_connection_t conn, xpc_object_t msg, xpc_object_t event, GTRepository *repo){
     NSString *repopath = @(xpc_dictionary_get_string(event, "repopath"));
 
@@ -219,8 +357,8 @@ static void get_diff(xpc_connection_t conn, xpc_object_t msg, xpc_object_t event
     
     xpc_dictionary_set_value(msg, "diff", modifications);
     xpc_connection_send_message(conn, msg);
-};
-
+}
+#endif
 
 #if 0
 static void get_diff(xpc_connection_t conn, xpc_object_t msg, const char* repopath, const char* filepath, const char* buf, size_t buflen) {
