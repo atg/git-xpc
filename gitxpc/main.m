@@ -4,6 +4,16 @@
 #include <Foundation/Foundation.h>
 #import "git2.h"
 
+#import "GTDiffPatch.h"
+#import "GTDiffDelta.h"
+#import "GTDiffHunk.h"
+#import "GTDiffLine.h"
+#import "GTDiff.h"
+#import "GTTree.h"
+#import "GTTreeBuilder.h"
+#import "GTTreeEntry.h"
+#import "ObjectiveGit.h"
+
 static int status_callback(const char *path, unsigned int status_flags, void *payload) {
     
     // Ignore ignored files
@@ -20,13 +30,19 @@ static void get_status(xpc_connection_t conn, xpc_object_t msg, const char* path
     
     // TODO: Cache repos? Or would that confuse git by holding locks?
     
+    NSTimeInterval t0 = [NSDate timeIntervalSinceReferenceDate];
     git_repository* repo = NULL;
-    git_repository_open(&repo, path);
-    if (repo) {
+    if (!git_repository_open(&repo, path) && repo) {
         git_status_foreach(repo, status_callback, (__bridge void*)msg); //CFBridgingRetain(msg));
         git_repository_free(repo);
     }
+    NSTimeInterval t1 = [NSDate timeIntervalSinceReferenceDate];
     
+    int64_t t_ms = (t1 - t0) * 1000;
+    if (t_ms < 0)
+        t_ms = 0;
+    
+    xpc_dictionary_set_uint64(msg, "com.chocolatapp.Chocolat.time_taken_ms", (uint64_t)t_ms);
     xpc_connection_send_message(conn, msg);
 }
 
@@ -79,18 +95,134 @@ static int diff_line_callback(const git_diff_delta *delta, const git_diff_hunk *
 #endif
     
     
-    NSLog(@"Found dif");
+//    NSLog(@"Found dif");
     xpc_dictionary_set_int64(info, "origin", (int64_t)line->origin);
     xpc_dictionary_set_int64(info, "old_lineno", (int64_t)line->old_lineno);
     xpc_dictionary_set_int64(info, "new_lineno", (int64_t)line->new_lineno);
     xpc_dictionary_set_int64(info, "num_lines", (int64_t)line->num_lines);
-
+    
     xpc_dictionary_set_uint64(info, "num_lines", (uint64_t)line->content_len);
     xpc_dictionary_set_int64(info, "num_lines", (int64_t)line->content_offset);
     
     return 0;
 }
 
+
+int onGTDiffLine(const git_diff_delta *gitDelta, const git_diff_hunk *gitHunk, const git_diff_line *gitLine, void *payload){
+    xpc_object_t modifications = (__bridge xpc_object_t) payload;
+    GTDiffLine *line = [[GTDiffLine alloc] initWithGitLine:gitLine];
+    if (line.newLineNumber < 0) {
+        return 1;
+    }
+    
+    xpc_object_t change = xpc_array_create(NULL, 0);
+    xpc_array_set_int64(change, 0, (int64_t)(line.oldLineNumber));
+    xpc_array_set_int64(change, 1, (int64_t)(line.newLineNumber));
+    xpc_array_set_int64(change, 2, (int64_t)(line.origin));
+    xpc_array_append_value(modifications, change);
+    return 0;
+}
+
+static void getDiffOfFile(xpc_connection_t conn, xpc_object_t msg, xpc_object_t event, GTRepository *repo){
+    NSURL *filepath = [NSURL URLWithString:@(xpc_dictionary_get_string(event, "filepath"))];
+    NSData *contents = [@(xpc_dictionary_get_string(event, "buffer")) dataUsingEncoding:NSUTF8StringEncoding];
+    xpc_object_t modifications = xpc_array_create(NULL, 0);
+    
+    GTBlob *newBlob = [GTBlob blobWithData:contents inRepository:repo error:nil];
+    GTBlob *oldBlob = [GTBlob blobWithFile:filepath inRepository:repo error:nil];
+    
+    git_diff_blobs(oldBlob.git_blob, NULL, newBlob.git_blob, NULL, NULL, NULL, NULL, onGTDiffLine, (__bridge void*)modifications);
+    
+    xpc_dictionary_set_value(msg, "diff", modifications);
+    xpc_connection_send_message(conn, msg);
+};
+
+
+static void get_diff(xpc_connection_t conn, xpc_object_t msg, xpc_object_t event) {
+//static void getDiffOfFile(xpc_connection_t conn, xpc_object_t msg, xpc_object_t event, GTRepository *repo){
+    NSString *repopath = @(xpc_dictionary_get_string(event, "repopath"));
+
+    NSError* err = nil;
+    NSURL* url = [NSURL fileURLWithPath:repopath isDirectory:YES];
+    GTRepository* repo = [[GTRepository alloc] initWithURL:url error:&err];
+    if (!repo)
+        return;
+    
+    NSString *filepath = @(xpc_dictionary_get_string(event, "filepath"));
+    const char* data = xpc_dictionary_get_string(event, "buffer");
+    NSData *contents = [NSData dataWithBytesNoCopy:(void*)data length:strlen(data) freeWhenDone:NO];//[@() dataUsingEncoding:NSUTF8StringEncoding];
+    
+    if (!filepath || !contents) {
+        xpc_connection_send_message(conn, msg);
+        return;
+    }
+    
+    xpc_object_t modifications = xpc_array_create(NULL, 0);
+    
+    GTBlob *newBlob = [GTBlob blobWithData:contents inRepository:repo error:nil];
+    GTBlob *oldBlob = [GTBlob blobWithFile:[NSURL fileURLWithPath:filepath isDirectory:NO] inRepository:repo error:nil];
+    
+    git_diff_options diffopts = GIT_DIFF_OPTIONS_INIT;
+    diffopts.context_lines = 0;
+    
+    git_diff_blobs(oldBlob.git_blob, NULL, newBlob.git_blob, NULL, &diffopts, NULL, NULL, onGTDiffLine, (__bridge void*)modifications);
+    
+    /*
+    GTTreeBuilder *newTree = [[GTTreeBuilder alloc] initWithTree:nil error:nil];
+    GTTreeBuilder *oldTree = [[GTTreeBuilder alloc] initWithTree:nil error:nil];
+    GTTreeEntry *newTreeEntry = [newTree addEntryWithData:contents fileName:filepath fileMode:GTFileModeBlob error:nil];
+    GTTreeEntry *oldTreeEntry = [oldTree entryWithFileName:filepath];
+    
+    GTDiff *diff = [GTDiff diffOldTree:oldTreeEntry.tree withNewTree:newTreeEntry.tree inRepository:repo options:@{
+                                                                                                                   @"GTDiffOptionsPathSpecArrayKey": @[filepath]
+                                                                                                                   } error:nil];    
+    void(^onGTDiffLine)() = ^(GTDiffLine *line, BOOL *stop){
+        if (!line) {
+            return;
+        }
+        
+        if (line.newLineNumber < 0) {
+            return;
+        }
+        
+        xpc_object_t change = xpc_array_create(NULL, 0);
+        xpc_array_set_uint64(change, 0, line.newLineNumber);
+        xpc_array_set_uint64(change, 1, line.origin);
+        xpc_array_append_value(modifications, change);
+    };
+    
+    void(^onGTDiffHunk)() = ^(GTDiffHunk *hunk, BOOL *stop){
+        if (!hunk) {
+            return;
+        }
+        
+        [hunk enumerateLinesInHunk:nil usingBlock:onGTDiffLine];
+    };
+    
+    void(^onGTDiffDelta)() = ^(GTDiffDelta *delta, BOOL *stop){
+        if (!delta) {
+            return;
+        }
+        
+        GTDiffPatch *patch = [delta generatePatch:nil];
+        
+        if (!patch) {
+            return;
+        }
+        
+        [patch enumerateHunksUsingBlock:onGTDiffHunk];
+    };
+    
+    if (diff) {
+        [diff enumerateDeltasUsingBlock:onGTDiffDelta];
+    }*/
+    
+    xpc_dictionary_set_value(msg, "diff", modifications);
+    xpc_connection_send_message(conn, msg);
+};
+
+
+#if 0
 static void get_diff(xpc_connection_t conn, xpc_object_t msg, const char* repopath, const char* filepath, const char* buf, size_t buflen) {
     
     git_repository* repo = NULL;
@@ -121,11 +253,11 @@ static void get_diff(xpc_connection_t conn, xpc_object_t msg, const char* repopa
         err = git_blob_lookup(&old_blob, repo, oid);
         if (err) { NSLog(@"Error 3: %d", err); goto fail; }
         
-        NSLog(@"blob size: %ld", git_blob_rawsize(old_blob));
+//        NSLog(@"blob size: %ld", git_blob_rawsize(old_blob));
         
         // Diff
         err = git_diff_blob_to_buffer(NULL, filepath, buf, buflen, filepath, NULL,
-                                NULL, NULL, diff_line_callback, (__bridge void*)msg);
+                                      NULL, NULL, diff_line_callback, (__bridge void*)msg);
         
         if (err) { NSLog(@"Error 4: %d", err); goto fail; }
         
@@ -137,6 +269,7 @@ static void get_diff(xpc_connection_t conn, xpc_object_t msg, const char* repopa
     
     xpc_connection_send_message(conn, msg);
 }
+#endif
 
 static void do_commit(xpc_connection_t conn, xpc_object_t msg, const char* path) {
     // ???
@@ -149,18 +282,13 @@ static void handle_message(xpc_connection_t peer, xpc_object_t event) {
     xpc_connection_t reply_conn = xpc_dictionary_get_remote_connection(event); assert(reply_conn != NULL);
     xpc_object_t reply_msg = xpc_dictionary_create_reply(event); assert(reply_msg != NULL);
     
-    NSLog(@"%@", reply_msg);
+//    NSLog(@"%@", reply_msg);
     
     if (0 == strcmp("status", name)) {
         get_status(reply_conn, reply_msg, repopath);
     }
     else if (0 == strcmp("diff", name)) {
-        const char* filepath = xpc_dictionary_get_string(event, "filepath"); assert(filepath != NULL);
-        
-        char buf[] = "hello world";
-        size_t buflen = sizeof(buf);
-        
-        get_diff(reply_conn, reply_msg, repopath, filepath, buf, buflen);
+        get_diff(reply_conn, reply_msg, event);
     }
     else if (0 == strcmp("commit", name)) {
         do_commit(reply_conn, reply_msg, repopath);
@@ -195,7 +323,7 @@ static void gitxpc_peer_event_handler(xpc_connection_t peer, xpc_object_t event)
 	}
 }
 
-static void gitxpc_event_handler(xpc_connection_t peer) 
+static void gitxpc_event_handler(xpc_connection_t peer)
 {
 	xpc_connection_set_target_queue(peer, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
     
@@ -206,7 +334,21 @@ static void gitxpc_event_handler(xpc_connection_t peer)
 	xpc_connection_resume(peer);
 }
 
+void nop_func(int x) {
+    _exit(1);
+}
+
 int main(int argc, const char *argv[]) {
+    // Disable crash reporter
+    signal(SIGABRT, nop_func);
+    signal(SIGILL, nop_func);
+    signal(SIGSEGV, nop_func);
+    signal(SIGFPE, nop_func);
+    signal(SIGBUS, nop_func);
+    signal(SIGPIPE, nop_func);
+    signal(SIGSYS, nop_func);
+    signal(SIGTRAP, nop_func);
+    
 	xpc_main(gitxpc_event_handler);
 	return 0;
 }
